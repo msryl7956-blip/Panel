@@ -1,0 +1,25 @@
+name: Unzip CodexSITE.zip
+
+on:
+  workflow_dispatch:
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Extract ZIP contents
+        run: unzip CodexSITE.zip -d .
+
+      - name: Remove ZIP file
+        run: rm CodexSITE.zip
+
+      - name: Commit Extracted Files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Extracted CodexSITE.zip via GitHub Action"
+          git push
